@@ -1,0 +1,9 @@
+-- CreateTable
+CREATE TABLE "links" (
+    "id" TEXT NOT NULL,
+    "targetUrl" VARCHAR(100) NOT NULL,
+    "createdAt" TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "links_pkey" PRIMARY KEY ("id")
+);
