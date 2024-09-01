@@ -18,7 +18,7 @@ export class LinksService {
         })
     }
 
-    async read(id: string) {
+    async find(id: string) {
         return this.prisma.links.findUnique({
             where: {
                 id: id
@@ -26,7 +26,7 @@ export class LinksService {
         })
     }
 
-    async readAll() {
+    async findAll() {
         return this.prisma.links.findMany()
     }
 

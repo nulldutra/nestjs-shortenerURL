@@ -14,7 +14,7 @@ export class LinksController {
 
     @Get(":id/redirect")
     async redirect(@Param('id') id: string, @Res() res) {
-        let target = await this.linkService.read(id)
+        let target = await this.linkService.find(id)
 
         if (! (target)) {
             throw new NotFoundException(`The id ${id} was not found`)
@@ -24,13 +24,13 @@ export class LinksController {
     }
 
     @Get(":id")
-    async read(@Param('id') id: string) {
-        return this.linkService.read(id)
+    async find(@Param('id') id: string) {
+        return this.linkService.find(id)
     }
 
     @Get()
-    async readAll() {
-        return this.linkService.readAll()
+    async findAll() {
+        return this.linkService.findAll()
     }
 
     @Delete(":id")
@@ -52,6 +52,6 @@ export class LinksController {
     }
 
     async exists(id: string) {
-        return this.linkService.read(id)
+        return this.linkService.find(id)
     }
 }
