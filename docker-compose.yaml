@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  postgres:
+    container_name: postgres_db
+    image: postgres:11.8
+    environment:
+      POSTGRES_DB: "shortener"
+      POSTGRES_PASSWORD: "shortener"
+      POSTGRES_USER: "shortener"
+    ports:
+      - "5432:5432"
+    expose:
+      - "5432"
+    networks:
+      - app-network
+    external_links:
+      - app-network
+    volumes:
+      - pg_data:/var/lib/postgresql/data/
+
+  shortener:
+    build:
+      context: .
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 1024M
+        reservations:
+          cpus: '2'
+          memory: 512M
+    depends_on:
+      - postgres
+    environment:
+      NODE_ENV: development
+    entrypoint: [ "yarn", "start:dev" ]
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./src:/usr/app/src
+      - ./migration:/usr/app/migration
+    networks:
+      - app-network
+    external_links:
+      - app-network
+
+networks:
+  app-network:
+    external: false
+volumes:
+  pg_data:
